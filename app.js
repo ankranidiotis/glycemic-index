@@ -73,6 +73,7 @@ function loadFoodInfo() {
         document.getElementById("glycemic-index").textContent = result.values[0][2]; // Glycemic Index
         document.getElementById("carbs").textContent = result.values[0][3]; // Carbs per 100g
         document.getElementById("source").textContent = result.values[0][4]; // Data Source
+        document.getElementById("glycemic-load").textContent = result.values[0][2] * result.values[0][3] / 100; // Glycemic Load
     } else {
         console.error('No data found for the selected food.');
     }

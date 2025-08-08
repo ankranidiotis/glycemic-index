@@ -1,0 +1,64 @@
+/* Light Mode Styles (default) */
+body {
+    background-color: #f8f9fa;
+    color: #000;
+}
+
+.container {
+    background-color: #fff;
+    color: #000;
+}
+
+.card {
+    background-color: #fff;
+    color: #000;
+}
+
+.form-select {
+    background-color: #fff;
+    color: #000;
+}
+
+.form-label {
+    color: #000;
+}
+
+.btn {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #121212;
+    color: #fff;
+}
+
+.container.dark-mode {
+    background-color: #121212;;
+    color: #fff;
+}
+
+.card.dark-mode {
+    background-color: #444;
+    color: #fff;
+}
+
+.form-select.dark-mode {
+    background-color: #555;
+    color: #fff;
+}
+
+.form-label.dark-mode {
+    color: #fff;
+}
+
+.btn.dark-mode {
+    background-color: #1a73e8;
+    color: #fff;
+}
+
+.smaller-text {
+    font-size: 0.875rem; /* 14px */
+}
+

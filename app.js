@@ -72,8 +72,12 @@ function loadFoodInfo() {
         document.getElementById("category").textContent = result.values[0][1]; // Category
         document.getElementById("glycemic-index").textContent = result.values[0][2]; // Glycemic Index
         document.getElementById("carbs").textContent = result.values[0][3]; // Carbs per 100g
-        document.getElementById("source").textContent = result.values[0][4]; // Data Source
-        document.getElementById("glycemic-load").textContent = result.values[0][2] * result.values[0][3] / 100; // Glycemic Load
+
+        // Set the source URL as a clickable link
+        const sourceUrl = result.values[0][4];  // Assuming the source URL is stored in the 5th column
+        const sourceElement = document.getElementById("source");
+        sourceElement.href = sourceUrl;  // Set the href to the source URL
+        sourceElement.textContent = sourceUrl;  // Optionally, you can display the URL as text too
     } else {
         console.error('No data found for the selected food.');
     }

@@ -16,6 +16,7 @@
         <div class="mb-4">
             <label for="food-select" class="form-label">Επιλέξτε τροφή:</label>
             <select id="food-select" class="form-select" onchange="loadFoodInfo()">
+                <option value="" disabled selected>Επιλέξτε:</option>
                 <!-- Options will be dynamically populated -->
             </select>
         </div>
@@ -24,10 +25,10 @@
         <div id="food-info" class="card p-3">
             <h5>Πληροφορίες:</h5>
             <p><strong>Κατηγορία:</strong> <span id="category"></span></p>
-            <p><strong>GIς:</strong> <span id="glycemic-index"></span></p>
+            <p><strong>GI:</strong> <span id="glycemic-index"></span></p>
             <p><strong>GL ανά 100g:</strong> <span id="glycemic-load"></span></p>
-            <p><strong>Υδατάνθρακες ανά 100γρ:</strong> <span id="carbs"></span></p>
-           <p><strong>Πηγή Δεδομένων:</strong> <a id="source" target="_blank">Πηγή</a></p>
+            <p><strong>Υδατάνθρακες ανά 100g:</strong> <span id="carbs"></span></p>
+           <p><strong>Πηγή:</strong> <a id="source" target="_blank">Πηγή</a></p>
         </div>
     </div>
 

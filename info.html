@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Γλυκαιμικός Δείκτης & Φορτίο - Πληροφορίες</title>
+
+    <!-- Link to favicon -->
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="styles.css">  
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+
+    <!-- Bootstrap Icons CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+</head>
+<body>
+
+    <!-- Navbar (Header Menu) -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="./assets/gi.png" alt="GILogo" style="height: 40px; margin-right: 10px;">
+                GI & GL
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="index.html">Κατάλογος</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#food-select">Υπολογιστής γεύματος</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="info.html">Πληροφορίες</a>
+                    </li>
+                    <li class="nav-item">
+                        <button id="dark-mode-toggle" class="btn"><i class="bi bi-moon-stars-fill"></i></button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <div class="row g-3"> <!-- Το g-3 προσθέτει κενό μεταξύ των καρτών -->
+            <!-- Card 1 -->
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Γλυκαιμικός Δείκτης</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">(GI)</h6>
+                        <p class="card-text">Ο γλυκαιμικός δείκτης (GI) μετρά την ικανότητα ενός τροφίμου να αυξάνει τα επίπεδα σακχάρου στο αίμα. Τα τρόφιμα με χαμηλό GI βοηθούν στη σταθεροποίηση του σακχάρου στο αίμα. Γενικώς, ισχύει ότι:
+                            <ul>
+                                <li><strong>Χαμηλό GI</strong>: GI ≤ 55 - Τα τρόφιμα με χαμηλό GI απορροφώνται αργά και προκαλούν ήπια αύξηση του σακχάρου στο αίμα.</li>
+                                <li><strong>Μεσαίο GI</strong>: 56 < GI < 70 - Τα τρόφιμα με μεσαίο GI προκαλούν μέτρια αύξηση του σακχάρου στο αίμα.</li>
+                                <li><strong>Υψηλό GI</strong>: GI ≥ 70 - Τα τρόφιμα με υψηλό GI προκαλούν απότομη αύξηση του σακχάρου στο αίμα.</li>
+                            </ul>
+                        </p>
+                        <a href="https://glycemicindex.com/" class="card-link">Περισσότερα...</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Γλυκαιμικό Φορτίο</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">(GL)</h6>
+                        <p class="card-text">Το γλυκαιμικό φορτίο υπολογίζει την πραγματική επίδραση ενός τροφίμου στην αύξηση του σακχάρου στο αίμα, λαμβάνοντας υπόψιν τόσο τον δείκτη GI όσο και την ποσότητα των υδατανθράκων στο τρόφιμο. Γενικώς, ισχύει ότι:
+                            <ul>
+                                <li><strong>Χαμηλό GL</strong>: GL ≤ 10 - Η ποσότητα κατανάλωσης ενός τροφίμου με χαμηλό GL προκαλεί ήπια αύξηση του σακχάρου στο αίμα.</li>
+                                <li><strong>Μεσαίο GL</strong>: 11 < GL < 19 - Η ποσότητα κατανάλωσης ενός τροφίμου με μεσαίο GL προκαλούν μέτρια αύξηση του σακχάρου στο αίμα.</li>
+                                <li><strong>Υψηλό GL</strong>: GL ≥ 20 - Η ποσότητα ενός κατανάλωσης τροφίμου με υψηλό GL προκαλούν απότομη αύξηση του σακχάρου στο αίμα, κυρίως λόγω της υψηλής ποσότητας υδατανθράκων που περιέχει.</li>
+                            </ul>
+                        </p>
+                        <a href="https://glycemic-index.net/" class="card-link">Περισσότερα...</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="col-lg-4 col-md-6 col-sm-12">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">Ασφαλής ποσότητα κατανάλωσης</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">GL ≤ 10</h6>
+                        <p class="card-text">Η ποσότητα σε γραμμάρια της οποίας το γλυκαιμικό φορτίο GL είναι ίσο με 10 είναι το ανώτατο όριο κατανάλωσης για την συγκεκριμένη τροφή. Οποιαδήποτε ποσότητα μικρότερη ή ίση αυτής είναι ασφαλής για κατανάλωση.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer bg-dark text-center py-3">
+        <p class="form-label">&copy; 2025 <a href="https://nassoskranidiotis.com" target="_blank">NassosKranidiotis.com</a></p>
+    </footer>
+
+    <!-- Load sql.js (This must be loaded before app.js) -->
+    <script src="https://cdn.jsdelivr.net/npm/sql.js@1.6.0/dist/sql-wasm.js"></script>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
+
+    <!-- Your custom JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>

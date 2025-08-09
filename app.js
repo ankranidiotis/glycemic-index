@@ -42,23 +42,25 @@ function loadFoods() {
     const foodSelect = document.getElementById("food-select");
 
     // Clear the dropdown before adding new items
-    foodSelect.innerHTML = "";
+    if (foodSelect) {
+        foodSelect.innerHTML = "";
 
-    // Add the default option (blank and disabled)
-    const defaultOption = document.createElement("option");
-    defaultOption.value = "";
-    defaultOption.textContent = "Επιλέξτε:";
-    defaultOption.disabled = true;
-    defaultOption.selected = true;
-    foodSelect.appendChild(defaultOption);
+        // Add the default option (blank and disabled)
+        const defaultOption = document.createElement("option");
+        defaultOption.value = "";
+        defaultOption.textContent = "Επιλέξτε:";
+        defaultOption.disabled = true;
+        defaultOption.selected = true;
+        foodSelect.appendChild(defaultOption);
 
-    // Add each food name to the dropdown as an option
-    result.values.forEach(row => {
-        const option = document.createElement("option");
-        option.value = row[0];  // The value of the option is the food name
-        option.textContent = row[0];  // The displayed text is the food name
-        foodSelect.appendChild(option);
-    });
+        // Add each food name to the dropdown as an option
+        result.values.forEach(row => {
+            const option = document.createElement("option");
+            option.value = row[0];  // The value of the option is the food name
+            option.textContent = row[0];  // The displayed text is the food name
+            foodSelect.appendChild(option);
+        });
+    }
 }
 
 
@@ -153,12 +155,15 @@ function loadFoodInfo() {
         }
         
         ////////////////// source URL ////////////////////////////
-        const sourceUrl = result.values[0][4];  
-        const sourceElement = document.getElementById("source");
-        sourceElement.href = sourceUrl;  
-        sourceElement.textContent = sourceUrl;  // Optionally, you can display the URL as text too
+        const sourceUrl = result.values[0][4];
+        if (sourceUrl != null) {
+            const sourceElement = document.getElementById("source");
+            sourceElement.setAttribute("href", sourceUrl);
+            sourceElement.setAttribute("target", "_blank");
+            sourceElement.textContent = "Πηγή";
+        }
 
-        ////////////////// source URL ////////////////////////////
+        ////////////////// food image ////////////////////////////
         const foodImage = './img/' + result.values[0][8] + '.webp';
         document.getElementById("food-image").src = foodImage;
         document.getElementById("food-image").alt = result.values[0][0] + ' Image';  
@@ -167,7 +172,6 @@ function loadFoodInfo() {
         console.error('No data found for the selected food.');
     }
 }
-
 
 
 // Initialize the database and populate the dropdown when the page loads
@@ -179,7 +183,13 @@ document.getElementById('dark-mode-toggle').addEventListener('click', function()
     // Toggle the 'dark-mode' class on the body and other elements
     document.body.classList.toggle('dark-mode');
     document.querySelector('.container').classList.toggle('dark-mode');
-    document.querySelector('.card').classList.toggle('dark-mode');
+    const cards = document.querySelectorAll('.card');
+    if (cards){
+        cards.forEach(card => {
+            card.classList.toggle('dark-mode');
+        });
+    }
+
     document.querySelector('.form-select').classList.toggle('dark-mode');
     document.querySelector('.form-label').classList.toggle('dark-mode');
     document.querySelector('.btn').classList.toggle('dark-mode');
@@ -204,8 +214,19 @@ document.getElementById('dark-mode-toggle').addEventListener('click', function()
 if (localStorage.getItem('dark-mode') === 'enabled') {
     document.body.classList.add('dark-mode');
     document.querySelector('.container').classList.add('dark-mode');
-    document.querySelector('.card').classList.add('dark-mode');
-    document.querySelector('.form-select').classList.add('dark-mode');
+
+    const cards = document.querySelectorAll('.card');
+    if (cards){
+        cards.forEach(card => {
+            card.classList.add('dark-mode');
+        });
+    }
+
+    const formSelectElement = document.querySelector('.form-select');
+    if (formSelectElement) {
+        formSelectElement.classList.add('dark-mode');
+    }
+
     document.querySelector('.form-label').classList.add('dark-mode');
     document.querySelector('.btn').classList.add('dark-mode');
     document.getElementById('dark-mode-toggle').innerHTML = '';

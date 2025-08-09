@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Γλυκαιμικός Δείκτης Τροφών</title>
+    <title>Γλυκαιμικός Δείκτης & Φορτίο</title>
 
     <!-- Link to favicon -->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -23,8 +23,10 @@
     <!-- Navbar (Header Menu) -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="index.html">GI & GL Τροφών</a>
-
+            <a class="navbar-brand" href="index.html">
+                <img src="./assets/gi.png" alt="GILogo" style="height: 40px; margin-right: 10px;">
+                GI & GL
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -36,6 +38,9 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#food-select">Υπολογιστής γεύματος</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="info.html">Πληροφορίες</a>
                     </li>
                     <li class="nav-item">
                         <button id="dark-mode-toggle" class="btn"><i class="bi bi-moon-stars-fill"></i></button>
@@ -68,37 +73,13 @@
             <p><strong>GI:</strong> <span id="glycemic-index"></span></p>
             <p><strong>GL ανά 100g:</strong> <span id="glycemic-load"></span></p>
             <p><strong>Υδατάνθρακες ανά 100g:</strong> <span id="carbs" class="badge text-bg-secondary fs-5"></span></p>
-            <p>
-                <strong>Μέγιστη ποσότητα για GL = 10:</strong> <span id="maximum-quantity" class="badge text-bg-success fs-5"></span>
-            </p>
-            <p><strong>Πηγή:</strong> <a id="source" target="_blank"></a></p>
-        </div>
-
-
-        <div class="row smaller-text mt-5 mx-2">
-            <div class="col-md-12">
-                <p><strong>Γλυκαιμικός Δείκτης (GI):</strong> Ο γλυκαιμικός δείκτης (GI) μετρά την ικανότητα ενός τροφίμου να αυξάνει τα επίπεδα σακχάρου στο αίμα. Τα τρόφιμα με χαμηλό GI βοηθούν στη σταθεροποίηση του σακχάρου στο αίμα. Γενικώς, ισχύει ότι:
-                    <ul>
-                        <li><strong>Χαμηλό GI</strong>: GI ≤ 55 - Τα τρόφιμα με χαμηλό GI απορροφώνται αργά και προκαλούν ήπια αύξηση του σακχάρου στο αίμα.</li>
-                        <li><strong>Μεσαίο GI</strong>: 56 < GI < 70 - Τα τρόφιμα με μεσαίο GI προκαλούν μέτρια αύξηση του σακχάρου στο αίμα.</li>
-                        <li><strong>Υψηλό GI</strong>: GI ≥ 70 - Τα τρόφιμα με υψηλό GI προκαλούν απότομη αύξηση του σακχάρου στο αίμα.</li>
-                    </ul>
-                </p>
-
-                <p><strong>Γλυκαιμικό Φορτίο (GL):</strong> Το γλυκαιμικό φορτίο υπολογίζει την πραγματική επίδραση ενός τροφίμου στην αύξηση του σακχάρου στο αίμα, λαμβάνοντας υπόψιν τόσο τον δείκτη GI όσο και την ποσότητα των υδατανθράκων στο τρόφιμο. Γενικώς, ισχύει ότι:              
-                    <ul>
-                        <li><strong>Χαμηλό GL</strong>: GL ≤ 10 - Η ποσότητα κατανάλωσης ενός τροφίμου με χαμηλό GL προκαλεί ήπια αύξηση του σακχάρου στο αίμα.</li>
-                        <li><strong>Μεσαίο GL</strong>: 11 < GL < 19 - Η ποσότητα κατανάλωσης ενός τροφίμου με μεσαίο GL προκαλούν μέτρια αύξηση του σακχάρου στο αίμα.</li>
-                        <li><strong>Υψηλό GL</strong>: GL ≥ 20 - Η ποσότητα ενός κατανάλωσης τροφίμου με υψηλό GL προκαλούν απότομη αύξηση του σακχάρου στο αίμα, κυρίως λόγω της υψηλής ποσότητας υδατανθράκων που περιέχει. </li>
-                    </ul>             
-                </p>
-                <p><strong>Πηγή Δεδομένων:</strong> <a href="https://glycemicindex.com/" target="_blank">Glycemic Index Research and GI News - University of Sidney</a></p>
-            </div>
+            <p><strong>Ασφαλής ποσότητα κατανάλωσης:</strong> <span id="maximum-quantity" class="badge text-bg-success fs-5"></span></p>
+            <p><a id="source"></a></p>
         </div>
     </div>
 
     <!-- Footer -->
-    <footer class="footer bg-dark text-center py-3">
+    <footer class="footer bg-dark text-center py-3 mt-5">
         <p class="form-label">&copy; 2025 <a href="https://nassoskranidiotis.com" target="_blank">NassosKranidiotis.com</a></p>
     </footer>
 

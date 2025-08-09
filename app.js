@@ -159,7 +159,7 @@ function loadFoodInfo() {
         sourceElement.textContent = sourceUrl;  // Optionally, you can display the URL as text too
 
         ////////////////// source URL ////////////////////////////
-        const foodImage = '/img/' + result.values[0][8] + '.webp';
+        const foodImage = './img/' + result.values[0][8] + '.webp';
         document.getElementById("food-image").src = foodImage;
         document.getElementById("food-image").alt = result.values[0][0] + ' Image';  
 

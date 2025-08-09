@@ -48,7 +48,7 @@ function loadFoods() {
         // Add the default option (blank and disabled)
         const defaultOption = document.createElement("option");
         defaultOption.value = "";
-        defaultOption.textContent = "Επιλέξτε:";
+        defaultOption.textContent = "Επιλέξτε τροφή:";
         defaultOption.disabled = true;
         defaultOption.selected = true;
         foodSelect.appendChild(defaultOption);

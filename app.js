@@ -157,6 +157,12 @@ function loadFoodInfo() {
         const sourceElement = document.getElementById("source");
         sourceElement.href = sourceUrl;  
         sourceElement.textContent = sourceUrl;  // Optionally, you can display the URL as text too
+
+        ////////////////// source URL ////////////////////////////
+        const foodImage = '/img/' + result.values[0][8] + '.webp';
+        document.getElementById("food-image").src = foodImage;
+        document.getElementById("food-image").alt = result.values[0][0] + ' Image';  
+
     } else {
         console.error('No data found for the selected food.');
     }
@@ -168,6 +174,7 @@ function loadFoodInfo() {
 window.onload = initSQL;
 
 
+// Toggle dark mode
 document.getElementById('dark-mode-toggle').addEventListener('click', function() {
     // Toggle the 'dark-mode' class on the body and other elements
     document.body.classList.toggle('dark-mode');

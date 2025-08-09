@@ -58,6 +58,12 @@ body.dark-mode {
     color: #fff;
 }
 
+
+
+
+
+
+
 .smaller-text {
     font-size: 14px;
 }
@@ -72,14 +78,6 @@ body.dark-mode {
 
 .navbar {
     z-index: 1050; 
-}
-
-.navbar-light .navbar-nav .nav-link {
-    color: #fff !important; /* Force light color for nav links */
-}
-
-.navbar-light .navbar-brand {
-    color: #fff !important; /* Force light color for brand */
 }
 
 footer.bg-dark p {

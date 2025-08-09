@@ -21,16 +21,18 @@
 <body>
 
     <!-- Navbar (Header Menu) -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">GI & GL Τροφών</a>
+            <a class="navbar-brand" href="index.html">GI & GL Τροφών</a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
+
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Κατάλογος</a>
+                        <a class="nav-link active" aria-current="page" href="index.html">Κατάλογος</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#food-select">Υπολογιστής γεύματος</a>
@@ -58,6 +60,10 @@
         <!-- Display Food Info -->
         <div id="food-info" class="card p-3">
             <h3><span id="food-name"></h3>
+
+            <!-- Image placeholder for the food -->
+            <img id="food-image" src="/img/gi.webp" alt="Introduction Image" class="img-fluid mb-3" style="max-height: 200px; object-fit: contain;">
+
             <p><strong>Κατηγορία:</strong> <span id="category"></span></p>
             <p><strong>GI:</strong> <span id="glycemic-index"></span></p>
             <p><strong>GL ανά 100g:</strong> <span id="glycemic-load"></span></p>
@@ -71,21 +77,20 @@
 
         <div class="row smaller-text m-5">
             <div class="col-md-12">
-                <p><strong>Γλυκαιμικός Δείκτης (GI):</strong> Ο γλυκαιμικός δείκτης (GI) μετρά την ικανότητα ενός τροφίμου να αυξάνει τα επίπεδα σακχάρου στο αίμα. Τα τρόφιμα με χαμηλό GI βοηθούν στη σταθεροποίηση του σακχάρου στο αίμα.</p>
-                <p><strong>Γλυκαιμικό Φορτίο (GL):</strong> Το γλυκαιμικό φορτίο υπολογίζει την πραγματική επίδραση ενός τροφίμου στην αύξηση του σακχάρου στο αίμα, λαμβάνοντας υπόψη τόσο το GI όσο και την ποσότητα των υδατανθράκων στο τρόφιμο.</p>
-                <p><strong>Κατηγορίες GI:</strong>
+                <p><strong>Γλυκαιμικός Δείκτης (GI):</strong> Ο γλυκαιμικός δείκτης (GI) μετρά την ικανότητα ενός τροφίμου να αυξάνει τα επίπεδα σακχάρου στο αίμα. Τα τρόφιμα με χαμηλό GI βοηθούν στη σταθεροποίηση του σακχάρου στο αίμα. Γενικώς, ισχύει ότι:
                     <ul>
                         <li><strong>Χαμηλό GI</strong>: GI ≤ 55 - Τα τρόφιμα με χαμηλό GI απορροφώνται αργά και προκαλούν ήπια αύξηση του σακχάρου στο αίμα.</li>
                         <li><strong>Μεσαίο GI</strong>: 56 < GI < 70 - Τα τρόφιμα με μεσαίο GI προκαλούν μέτρια αύξηση του σακχάρου στο αίμα.</li>
                         <li><strong>Υψηλό GI</strong>: GI ≥ 70 - Τα τρόφιμα με υψηλό GI προκαλούν απότομη αύξηση του σακχάρου στο αίμα.</li>
                     </ul>
                 </p>
-                <p><strong>Κατηγορίες GL:</strong>
+
+                <p><strong>Γλυκαιμικό Φορτίο (GL):</strong> Το γλυκαιμικό φορτίο υπολογίζει την πραγματική επίδραση ενός τροφίμου στην αύξηση του σακχάρου στο αίμα, λαμβάνοντας υπόψιν τόσο τον δείκτη GI όσο και την ποσότητα των υδατανθράκων στο τρόφιμο. Γενικώς, ισχύει ότι:              
                     <ul>
-                        <li><strong>Χαμηλό GL</strong>: GL ≤ 10 - Τα τρόφιμα με χαμηλό GL περιέχουν μικρή ποσότητα υδατανθράκων ή απορροφώνται αργά, προκαλώντας ήπια αύξηση του σακχάρου στο αίμα, ακόμα και όταν καταναλώνονται σε μεγαλύτερη ποσότητα.</li>
-                        <li><strong>Μεσαίο GL</strong>: 11 < GL < 19 - Τα τρόφιμα με μεσαίο GL προκαλούν μέτρια αύξηση του σακχάρου στο αίμα, και η επίδραση αυτή εξαρτάται τόσο από την τιμή του GI όσο και από την ποσότητα των υδατανθράκων που περιέχουν.</li>
-                        <li><strong>Υψηλό GL</strong>: GL ≥ 20 - Τα τρόφιμα με υψηλό GL προκαλούν απότομη αύξηση του σακχάρου στο αίμα, κυρίως λόγω της υψηλής ποσότητας υδατανθράκων που περιέχουν. Αυτά τα τρόφιμα θα πρέπει να καταναλώνονται με μέτρο, καθώς η κατανάλωση τους σε μεγάλες ποσότητες μπορεί να οδηγήσει σε απότομη αύξηση του σακχάρου.</li>
-                    </ul>
+                        <li><strong>Χαμηλό GL</strong>: GL ≤ 10 - Η ποσότητα κατανάλωσης ενός τροφίμου με χαμηλό GL προκαλεί ήπια αύξηση του σακχάρου στο αίμα.</li>
+                        <li><strong>Μεσαίο GL</strong>: 11 < GL < 19 - Η ποσότητα κατανάλωσης ενός τροφίμου με μεσαίο GL προκαλούν μέτρια αύξηση του σακχάρου στο αίμα.</li>
+                        <li><strong>Υψηλό GL</strong>: GL ≥ 20 - Η ποσότητα ενός κατανάλωσης τροφίμου με υψηλό GL προκαλούν απότομη αύξηση του σακχάρου στο αίμα, κυρίως λόγω της υψηλής ποσότητας υδατανθράκων που περιέχει. </li>
+                    </ul>             
                 </p>
                 <p><strong>Πηγή Δεδομένων:</strong> <a href="https://glycemicindex.com/" target="_blank">Glycemic Index Research and GI News - University of Sidney</a></p>
             </div>

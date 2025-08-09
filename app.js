@@ -79,6 +79,9 @@ function loadFoodInfo() {
     if (result && result.values.length > 0) {
         // Populate the food details
 
+        // Food name
+        document.getElementById("food-name").textContent = result.values[0][0]; 
+
         // Category
         document.getElementById("category").textContent = result.values[0][1]; 
 
@@ -89,34 +92,25 @@ function loadFoodInfo() {
         const giElement = document.getElementById("glycemic-index");
 
         // Reset previous styles
-        giElement.style.color = "black";  // Default color
-        giElement.style.backgroundColor = "";  // Reset background color
-        giElement.style.padding = "0";  // Reset padding
-        giElement.style.borderRadius = "0";  // Reset border radius
+        giElement.classList.remove("badge", "bg-success", "bg-warning", "bg-danger"); 
 
-        // Apply color coding and design changes
+        // Apply color coding and design changes using Bootstrap's badge classes
+        giElement.classList.add("badge", "fs-5"); 
         if (gi <= 55) {
             // Low GI (green)
-            giElement.style.color = "white";
-            giElement.style.backgroundColor = "green";
-            giElement.style.padding = "5px 10px";
-            giElement.style.borderRadius = "5px";
+            giElement.classList.add("bg-success");  
             giElement.title = "Χαμηλός GI - Ιδανικό για έλεγχο σακχάρου";
         } else if (gi > 55 && gi < 70) {
             // Medium GI (orange)
-            giElement.style.color = "white";
-            giElement.style.backgroundColor = "orange";
-            giElement.style.padding = "5px 10px";
-            giElement.style.borderRadius = "5px";
+            giElement.classList.add("bg-warning");  
             giElement.title = "Μέσος GI - Μέτρια επίδραση στο σάκχαρο";
         } else {
             // High GI (red)
-            giElement.style.color = "white";
-            giElement.style.backgroundColor = "red";
-            giElement.style.padding = "5px 10px";
-            giElement.style.borderRadius = "5px";
+            giElement.classList.add("bg-danger");   
             giElement.title = "Υψηλό GI - Μπορεί να προκαλέσει απότομη αύξηση σακχάρου";
         }
+
+        // Set the GI value as the badge content
         giElement.textContent = gi;
 
 
@@ -124,41 +118,40 @@ function loadFoodInfo() {
         let gl = result.values[0][2] * result.values[0][3] / 100; 
         const glElement = document.getElementById("glycemic-load");
 
-        // Reset previous styles
-        glElement.style.color = "black";  // Default color
-        glElement.style.backgroundColor = "";  // Reset background color
-        glElement.style.padding = "0";  // Reset padding
-        glElement.style.borderRadius = "0";  // Reset border radius
+        // Reset previous styles (no need for inline styles anymore, since we're using Bootstrap badges)
+        glElement.classList.remove("badge", "bg-success", "bg-warning", "bg-danger"); // Remove any old badge classes
 
-        // Apply color coding and design changes
+        // Add badge
+        glElement.classList.add("badge", "fs-5");
+
         if (gl <= 10) {
             // Low GL (green)
-            glElement.style.color = "white";
-            glElement.style.backgroundColor = "green";
-            glElement.style.padding = "5px 10px";
-            glElement.style.borderRadius = "5px";
+            glElement.classList.add("bg-success");  
             glElement.title = "Χαμηλό GL - Ιδανικό για έλεγχο σακχάρου";
         } else if (gl > 10 && gl < 20) {
             // Medium GL (orange)
-            glElement.style.color = "white";
-            glElement.style.backgroundColor = "orange";
-            glElement.style.padding = "5px 10px";
-            glElement.style.borderRadius = "5px";
+            glElement.classList.add("bg-warning"); 
             glElement.title = "Μέσο GL - Μέτρια επίδραση στο σάκχαρο";
         } else {
             // High GL (red)
-            glElement.style.color = "white";
-            glElement.style.backgroundColor = "red";
-            glElement.style.padding = "5px 10px";
-            glElement.style.borderRadius = "5px";
+            glElement.classList.add("bg-danger");  
             glElement.title = "Υψηλό GL - Μπορεί να προκαλέσει απότομη αύξηση σακχάρου";
         }
+
+        // Set the GL value as the badge content with one decimal place
         glElement.textContent = gl.toFixed(1);
      
         
         ////////////////// Carbs per 100g ////////////////////////////
-        document.getElementById("carbs").textContent = result.values[0][3]; 
+        document.getElementById("carbs").textContent = result.values[0][3] + " g"; 
 
+        ////////////////// Maximum Quantity ////////////////////////////
+        if (result.values[0][3] > 0 && gi > 0){
+            document.getElementById("maximum-quantity").textContent = (100000 / (result.values[0][3] * gi)).toFixed(1) + " g"; 
+        } else {
+            document.getElementById("maximum-quantity").textContent = "Χωρίς όριο";  
+        }
+        
         ////////////////// source URL ////////////////////////////
         const sourceUrl = result.values[0][4];  
         const sourceElement = document.getElementById("source");
@@ -184,14 +177,20 @@ document.getElementById('dark-mode-toggle').addEventListener('click', function()
     document.querySelector('.form-label').classList.toggle('dark-mode');
     document.querySelector('.btn').classList.toggle('dark-mode');
 
+    const icon = document.createElement('i');
+
     // Change the button text based on the current mode
     if (document.body.classList.contains('dark-mode')) {
-        this.textContent = 'Disable Dark Mode';
+        icon.className = 'bi bi-sun-fill';  // Set class for sun icon
         localStorage.setItem('dark-mode', 'enabled'); // Save preference
     } else {
-        this.textContent = 'Enable Dark Mode';
+        icon.className = 'bi bi-moon-stars-fill';  // Set class for moon icon
         localStorage.setItem('dark-mode', 'disabled'); // Save preference
     }
+
+    // Clear existing content and append the new icon
+    this.innerHTML = '';  // Clear current content
+    this.appendChild(icon);  // Append the new icon
 });
 
 // Check for stored dark mode preference and apply it on page load
@@ -202,5 +201,8 @@ if (localStorage.getItem('dark-mode') === 'enabled') {
     document.querySelector('.form-select').classList.add('dark-mode');
     document.querySelector('.form-label').classList.add('dark-mode');
     document.querySelector('.btn').classList.add('dark-mode');
-    document.getElementById('dark-mode-toggle').textContent = 'Disable Dark Mode';
+    document.getElementById('dark-mode-toggle').innerHTML = '';
+    const icon = document.createElement('i');
+    icon.className = 'bi bi-sun-fill';  // Set class for sun icon
+    document.getElementById('dark-mode-toggle').appendChild(icon);
 }

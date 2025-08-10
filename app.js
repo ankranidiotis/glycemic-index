@@ -75,11 +75,11 @@ function loadFoodInfo() {
 
     // Query to fetch the details of the selected food
     const query = `SELECT * FROM FOOD WHERE NAME = ?`;
-    const result = db.exec(query, [foodName])[0];  // Execute the query with the selected food name
+    const result = db.exec(query, [foodName])[0];
 
     // Check if the query returns valid data
     if (result && result.values.length > 0) {
-        // Populate the food details
+        console.log(result)
 
         // Food name
         document.getElementById("food-name").textContent = result.values[0][0]; 

@@ -1,4 +1,5 @@
 let db;
+const meal = []; // Array για το γεύμα (τροφές + ποσότητες)
 
 async function initSQL() {
     try {
@@ -256,6 +257,50 @@ if (localStorage.getItem('dark-mode') === 'enabled') {
     icon.className = 'bi bi-sun-fill';  // Set class for sun icon
     document.getElementById('dark-mode-toggle').appendChild(icon);
 }
+
+//////////////////////////////// Υπολογιστής γεύματος ////////////////////////////
+// Προσθήκη τροφής στο γεύμα
+document.getElementById("add-food").addEventListener("click", function() {
+    const foodName = document.getElementById("food-select").value;
+    const quantity = parseFloat(document.getElementById("quantity").value);
+
+    if (foodName && quantity > 0) {
+        meal.push({ foodName, quantity });
+
+        // Εμφάνιση τροφής στο γεύμα
+        const mealList = document.getElementById("meal-list");
+        const listItem = document.createElement("li");
+        listItem.textContent = `${foodName} - ${quantity}g`;
+        mealList.appendChild(listItem);
+
+        // Καθαρισμός του πεδίου ποσότητας
+        document.getElementById("quantity").value = 100;  // Reset to default value
+    }
+});
+
+// Υπολογισμός GL του γεύματος
+document.getElementById("calculate-gl").addEventListener("click", function() {
+    let totalGL = 0;
+
+    meal.forEach(item => {
+        const query = `SELECT GLYCEMIC_INDEX, CARBS_PER_100G FROM FOOD WHERE NAME = ?`;
+        const result = db.exec(query, [item.foodName])[0];
+
+        if (result && result.values.length > 0) {
+            const glycemicIndex = result.values[0][0];
+            const carbsPer100g = result.values[0][1];
+
+            // Υπολογισμός του GL για τη συγκεκριμένη τροφή
+            const gl = (carbsPer100g * item.quantity / 100) * glycemicIndex /100;
+
+            totalGL += gl;
+        }
+    });
+
+    // Εμφάνιση του συνολικού GL
+    document.getElementById("total-gl").textContent = totalGL.toFixed(2);
+});
+
 
 
 // Initialize the database and populate the dropdown when the page loads

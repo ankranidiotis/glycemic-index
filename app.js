@@ -84,20 +84,25 @@ function loadFoodInfo() {
 
 
     // Query to fetch the details of the selected food
-    const query = `SELECT * FROM FOOD WHERE NAME = ?`;
-    const result = db.exec(query, [foodName])[0];
+    const result = db.exec(`SELECT * FROM FOOD WHERE NAME = ?`, [foodName])[0];
 
     // Check if the query returns valid data
     if (result && result.values.length > 0) {
 
+        let category = result.values[0][1];
+        let gi = result.values[0][2];
+        let carbsper100g = result.values[0][3];
+        let sourceUrl = result.values[0][4];
+        let servingtype = result.values[0][5];
+        let imagename = result.values[0][6];
+
         // Food name
-        document.getElementById("food-name").textContent = result.values[0][0]; 
+        document.getElementById("food-name").textContent = foodName; 
 
         // Category
-        document.getElementById("category").textContent = result.values[0][1]; 
+        document.getElementById("category").textContent = category; 
 
         ////////////////// Glycemic Index ////////////////////////////
-        let gi = result.values[0][2];
 
         // Get the glycemic index element
         const giElement = document.getElementById("glycemic-index");
@@ -126,7 +131,7 @@ function loadFoodInfo() {
 
 
         ////////////////// Glycemic Load per 100g ////////////////////////////
-        let gl = result.values[0][2] * result.values[0][3] / 100; 
+        let gl = gi * carbsper100g / 100; 
         const glElement = document.getElementById("glycemic-load");
 
         // Reset previous styles (no need for inline styles anymore, since we're using Bootstrap badges)
@@ -154,17 +159,16 @@ function loadFoodInfo() {
      
         
         ////////////////// Carbs per 100g ////////////////////////////
-        document.getElementById("carbs").textContent = result.values[0][3] + "g"; 
+        document.getElementById("carbs").textContent = carbsper100g + "g"; 
 
         ////////////////// Maximum Quantity ////////////////////////////
-        if (result.values[0][3] > 0 && gi > 0){
-            document.getElementById("maximum-quantity").textContent = (100000 / (result.values[0][3] * gi)).toFixed(1) + "g " + result.values[0][6].toLowerCase(); 
+        if (carbsper100g > 0 && gi > 0){
+            document.getElementById("maximum-quantity").textContent = (100000 / (carbsper100g * gi)).toFixed(1) + "g " + servingtype.toLowerCase(); 
         } else {
             document.getElementById("maximum-quantity").textContent = "Χωρίς όριο";  
         }
         
         ////////////////// source URL ////////////////////////////
-        const sourceUrl = result.values[0][4];
         if (sourceUrl != null) {
             const sourceElement = document.getElementById("source");
             sourceElement.setAttribute("href", sourceUrl);
@@ -173,25 +177,34 @@ function loadFoodInfo() {
         }
 
         ////////////////// food image ////////////////////////////
-        const foodImage = './img/' + result.values[0][8] + '.webp';
+        const foodImage = './img/' + imagename + '.webp';
         document.getElementById("food-image").src = foodImage;
         document.getElementById("food-image").alt = result.values[0][0] + ' Image';  
 
         ////////////////// serving ////////////////////////////
-        if (result.values[0][5]){
-            const carbs = result.values[0][7] * result.values[0][3] / 100;
-            const glserving = carbs * gi / 100;
-            const serving = result.values[0][5] + ' ' + result.values[0][6].toLowerCase() + ' ' + foodName.toLowerCase() + ' (' + result.values[0][7] + 'g)' + ' έχει GL ' + glserving.toFixed(1);
-            document.getElementById("serving").textContent = serving; 
-        }
-        else{
+        const conversions = db.exec(
+            `SELECT * FROM CONVERSION WHERE FOODNAME = ?`, [foodName])[0];
+
+        if (conversions && conversions.values.length > 0) {
+            let servingsList = conversions.values.map(row => {
+                const measurer = row[1];
+                const quantity = row[2];
+                const tograms = row[3];
+
+                const carbs = (tograms * carbsper100g) / 100;
+                const glserving = (carbs * gi) / 100;
+
+                return `${quantity} ${measurer} ${servingtype.toLowerCase()} ${foodName.toLowerCase()} (${tograms}g) έχει GL ${glserving.toFixed(1)}`;
+            });
+
+            document.getElementById("serving").innerHTML = servingsList.join("<br>");
+        } else {
             document.getElementById("serving").textContent = "";
         }
-
-    } else {
-        console.error('No data found for the selected food.');
-    }
-}
+            } else {
+                console.error('No data found for the selected food.');
+            }
+        }
 
 //////////////////////////////// Dark Mode ///////////////////////////////////////
 

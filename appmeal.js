@@ -67,125 +67,6 @@ function loadFoods() {
 }
 
 
-// Function to load the food details when a food item is selected
-function loadFoodInfo() {
-    const foodName = document.getElementById("food-select").value;
-
-    // If no food is selected, exit the function
-    if (!foodName) {
-        return;
-    }
-
-    // Query to fetch the details of the selected food
-    const query = `SELECT * FROM FOOD WHERE NAME = ?`;
-    const result = db.exec(query, [foodName])[0];
-
-    // Check if the query returns valid data
-    if (result && result.values.length > 0) {
-
-        // Food name
-        document.getElementById("food-name").textContent = result.values[0][0]; 
-
-        // Category
-        document.getElementById("category").textContent = result.values[0][1]; 
-
-        ////////////////// Glycemic Index ////////////////////////////
-        let gi = result.values[0][2];
-
-        // Get the glycemic index element
-        const giElement = document.getElementById("glycemic-index");
-
-        // Reset previous styles
-        giElement.classList.remove("badge", "bg-success", "bg-warning", "bg-danger"); 
-
-        // Apply color coding and design changes using Bootstrap's badge classes
-        giElement.classList.add("badge", "fs-5"); 
-        if (gi <= 55) {
-            // Low GI (green)
-            giElement.classList.add("bg-success");  
-            giElement.title = "Χαμηλός GI - Ιδανικό για έλεγχο σακχάρου";
-        } else if (gi > 55 && gi < 70) {
-            // Medium GI (orange)
-            giElement.classList.add("bg-warning");  
-            giElement.title = "Μέσος GI - Μέτρια επίδραση στο σάκχαρο";
-        } else {
-            // High GI (red)
-            giElement.classList.add("bg-danger");   
-            giElement.title = "Υψηλό GI - Μπορεί να προκαλέσει απότομη αύξηση σακχάρου";
-        }
-
-        // Set the GI value as the badge content
-        giElement.textContent = gi;
-
-
-        ////////////////// Glycemic Load per 100g ////////////////////////////
-        let gl = result.values[0][2] * result.values[0][3] / 100; 
-        const glElement = document.getElementById("glycemic-load");
-
-        // Reset previous styles (no need for inline styles anymore, since we're using Bootstrap badges)
-        glElement.classList.remove("badge", "bg-success", "bg-warning", "bg-danger"); // Remove any old badge classes
-
-        // Add badge
-        glElement.classList.add("badge", "fs-5");
-
-        if (gl <= 10) {
-            // Low GL (green)
-            glElement.classList.add("bg-success");  
-            glElement.title = "Χαμηλό GL - Ιδανικό για έλεγχο σακχάρου";
-        } else if (gl > 10 && gl < 20) {
-            // Medium GL (orange)
-            glElement.classList.add("bg-warning"); 
-            glElement.title = "Μέσο GL - Μέτρια επίδραση στο σάκχαρο";
-        } else {
-            // High GL (red)
-            glElement.classList.add("bg-danger");  
-            glElement.title = "Υψηλό GL - Μπορεί να προκαλέσει απότομη αύξηση σακχάρου";
-        }
-
-        // Set the GL value as the badge content with one decimal place
-        glElement.textContent = gl.toFixed(1);
-     
-        
-        ////////////////// Carbs per 100g ////////////////////////////
-        document.getElementById("carbs").textContent = result.values[0][3] + "g"; 
-
-        ////////////////// Maximum Quantity ////////////////////////////
-        if (result.values[0][3] > 0 && gi > 0){
-            document.getElementById("maximum-quantity").textContent = (100000 / (result.values[0][3] * gi)).toFixed(1) + "g " + result.values[0][6].toLowerCase(); 
-        } else {
-            document.getElementById("maximum-quantity").textContent = "Χωρίς όριο";  
-        }
-        
-        ////////////////// source URL ////////////////////////////
-        const sourceUrl = result.values[0][4];
-        if (sourceUrl != null) {
-            const sourceElement = document.getElementById("source");
-            sourceElement.setAttribute("href", sourceUrl);
-            sourceElement.setAttribute("target", "_blank");
-            sourceElement.textContent = "Πηγή";
-        }
-
-        ////////////////// food image ////////////////////////////
-        const foodImage = './img/' + result.values[0][8] + '.webp';
-        document.getElementById("food-image").src = foodImage;
-        document.getElementById("food-image").alt = result.values[0][0] + ' Image';  
-
-        ////////////////// serving ////////////////////////////
-        if (result.values[0][5]){
-            const carbs = result.values[0][7] * result.values[0][3] / 100;
-            const glserving = carbs * gi / 100;
-            const serving = result.values[0][5] + ' ' + result.values[0][6].toLowerCase() + ' ' + foodName.toLowerCase() + ' (' + result.values[0][7] + 'g)' + ' έχει GL ' + glserving.toFixed(1);
-            document.getElementById("serving").textContent = serving; 
-        }
-        else{
-            document.getElementById("serving").textContent = "";
-        }
-
-    } else {
-        console.error('No data found for the selected food.');
-    }
-}
-
 //////////////////////////////// Dark Mode ///////////////////////////////////////
 
 // Toggle dark mode
@@ -305,3 +186,10 @@ document.getElementById("calculate-gl").addEventListener("click", function() {
 
 // Initialize the database and populate the dropdown when the page loads
 window.onload = initSQL;
+
+
+// Activate all popovers
+document.addEventListener('DOMContentLoaded', function () {
+  const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+  [...popoverTriggerList].forEach(el => new bootstrap.Popover(el));
+});

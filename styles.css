@@ -15,7 +15,11 @@ body {
 .container {
     background-color: #fff;
     color: #000;
-    flex: 1;  /* This ensures the container expands and pushes the footer down */
+    flex: 1; 
+}
+
+.small-container {
+    max-width: 700px;
 }
 
 .card {
@@ -49,12 +53,12 @@ body.dark-mode {
 }
 
 .card.dark-mode {
-    background-color: #444;
+    background-color: #27272A;
     color: #fff;
 }
 
 .form-select.dark-mode {
-    background-color: #555;
+    background-color: #27272A;
     color: #fff;
 }
 
@@ -78,6 +82,8 @@ body.dark-mode {
     font-size: 18px;
 }
 
+
+
 .margin-top-large {
     margin-top: 120px; 
 }
@@ -87,9 +93,19 @@ body.dark-mode {
 }
 
 
+.d-none {
+    display: none !important;
+}
+
+.d-block {
+    display: block !important;
+}
+
+
+
 /* Footer */
 footer {
-    background-color: #343a40;
+    background-color: #21252941;
     color: #fff;
     text-align: center;
     padding: 10px 0;
@@ -98,5 +114,6 @@ footer {
 }
 
 footer.bg-dark p {
+    background-color: #212529;
     color: #fff !important;  /* Light text color */
 }

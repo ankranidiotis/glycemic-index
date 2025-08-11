@@ -75,6 +75,14 @@ function loadFoodInfo() {
         return;
     }
 
+    // Show content after a selection is made
+    document.getElementById('food-details').classList.remove('d-none');
+    document.getElementById('food-details').classList.add('d-block'); 
+    
+    document.getElementById('front-image').classList.remove('d-block');
+    document.getElementById('front-image').classList.add('d-none');
+
+
     // Query to fetch the details of the selected food
     const query = `SELECT * FROM FOOD WHERE NAME = ?`;
     const result = db.exec(query, [foodName])[0];
@@ -98,7 +106,7 @@ function loadFoodInfo() {
         giElement.classList.remove("badge", "bg-success", "bg-warning", "bg-danger"); 
 
         // Apply color coding and design changes using Bootstrap's badge classes
-        giElement.classList.add("badge", "fs-5"); 
+        giElement.classList.add("badge", "fs-6"); 
         if (gi <= 55) {
             // Low GI (green)
             giElement.classList.add("bg-success");  
@@ -125,7 +133,7 @@ function loadFoodInfo() {
         glElement.classList.remove("badge", "bg-success", "bg-warning", "bg-danger"); // Remove any old badge classes
 
         // Add badge
-        glElement.classList.add("badge", "fs-5");
+        glElement.classList.add("badge", "fs-6");
 
         if (gl <= 10) {
             // Low GL (green)

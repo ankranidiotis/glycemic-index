@@ -8,14 +8,14 @@
     <!-- Link to favicon -->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 
-    <!-- Link to external CSS file -->
-    <link rel="stylesheet" href="styles.css">  
-
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
 
     <!-- Bootstrap Icons CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="styles.css">  
 
 </head>
 <body>
@@ -24,8 +24,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.html">
-                <img src="./assets/gi.png" alt="GILogo" style="height: 40px; margin-right: 10px;">
-                GI & GL
+                <img src="./assets/logo.png" alt="GILogo" style="height: 40px; margin-right: 10px;">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -34,7 +33,7 @@
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="index.html">Κατάλογος</a>
+                        <a class="nav-link active" aria-current="page" href="index.html">Κατάλογος τροφών</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="mealcalc.html">Υπολογιστής γεύματος</a>
@@ -51,7 +50,7 @@
     </nav>
 
     <!-- Main Content -->
-    <div class="container ">
+    <div class="container small-container">
         
         <!-- Dropdown for selecting food -->
         <div class="mb-4 mt-3">
@@ -62,24 +61,100 @@
         </div>
 
         <!-- Display Food Info -->
-        <div id="food-info" class="card p-3">
-            <h3><span id="food-name"></h3>
+
+        <h1><span id="food-name"></h1>
+        <h5><span id="category"></span></h5>
+        
+        <!-- Image placeholder for the food -->
+        <img id="front-image" src="./img/gi.webp" alt="Introduction Image" class="img-fluid mb-3 d-block mx-auto d-block" style="max-height: 450px; object-fit: contain;">
+
+        <!-- Container for the food details -->
+        <div id="food-details" class="d-none">
 
             <!-- Image placeholder for the food -->
-            <img id="food-image" src="./img/gi.webp" alt="Introduction Image" class="img-fluid mb-3" style="max-height: 200px; object-fit: contain;">
+            <img id="food-image" alt="Food Image" class="img-fluid mb-3 d-block mx-auto" style="max-height: 200px; object-fit: contain;">
 
-            <p><strong>Κατηγορία:</strong> <span id="category"></span></p>
-            <p><strong>GI:</strong> <span id="glycemic-index"></span></p>
-            <p><strong>GL σε 100g:</strong> <span id="glycemic-load"></span></p>
-            <p><strong>Υδατάνθρακες ανά 100g:</strong> <span id="carbs" class="badge text-bg-secondary fs-5"></span></p>
-            <p><strong>Όριο κατανάλωσης:</strong> <span id="maximum-quantity" class="badge text-bg-success fs-5"></span></p>
-            <p><span id="serving"></span></p>
-            <p><a id="source"></a></p>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <span>Γλυκαιμικός δείκτης</span>
+                                <span id="glycemic-index"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <span>Γλυκαιμικό φορτίο 100g</span>
+                                <span id="glycemic-load"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <span>Υδατάνθρακες ανά 100g</span>
+                                <span id="carbs" class="badge text-bg-secondary fs-6"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between">
+                                <span>Άνω όριο</span>
+                                <span id="maximum-quantity" class="badge text-bg-success fs-6">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="food-info" class="card p-0 mb-3">
+                <div class="card-body">
+                    <p><span id="serving"></span></p>
+                </div>
+            </div>
+
+            <!-- Legend -->
+            <div class="card">
+                <div class="card-body" style="font-size: 0.9rem;">
+                    <h5 class="card-title">Χρωματικό υπόμνημα</h5>
+
+                    <div class="d-flex align-items-center mb-2">
+                    <span class="badge bg-success me-2">&nbsp;&nbsp;</span>
+                    <span>Χαμηλή επίδραση στο σάκχαρο</span>
+                    </div>
+
+                    <div class="d-flex align-items-center mb-2">
+                    <span class="badge bg-warning me-2">&nbsp;&nbsp;</span>
+                    <span>Μεσαία επίδραση στο σάκχαρο</span>
+                    </div>
+
+                    <div class="d-flex align-items-center">
+                    <span class="badge bg-danger me-2">&nbsp;&nbsp;</span>
+                    <span>Υψηλή επίδραση στο σάκχαρο με απότομη αύξηση</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Source URL -->
+            <p class="mt-2"><a id="source"></a></p>
         </div>
     </div>
 
     <!-- Footer -->
-    <footer class="footer bg-dark text-center py-3 mt-5">
+    <footer class="footer text-center py-3 mt-5">
         <p class="form-label">&copy; 2025 <a href="https://nassoskranidiotis.com" target="_blank">NassosKranidiotis.com</a></p>
     </footer>
 

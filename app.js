@@ -159,11 +159,11 @@ function loadFoodInfo() {
      
         
         ////////////////// Carbs per 100g ////////////////////////////
-        document.getElementById("carbs").textContent = carbsper100g + "g"; 
+        document.getElementById("carbs").textContent = carbsper100g + " γρ."; 
 
         ////////////////// Maximum Quantity ////////////////////////////
         if (carbsper100g > 0 && gi > 0){
-            document.getElementById("maximum-quantity").textContent = (100000 / (carbsper100g * gi)).toFixed(1) + "g " + servingtype.toLowerCase(); 
+            document.getElementById("maximum-quantity").textContent = (100000 / (carbsper100g * gi)).toFixed(1) + " γρ. " + servingtype.toLowerCase(); 
         } else {
             document.getElementById("maximum-quantity").textContent = "Χωρίς όριο";  
         }
@@ -188,13 +188,12 @@ function loadFoodInfo() {
         if (conversions && conversions.values.length > 0) {
             let servingsList = conversions.values.map(row => {
                 const measurer = row[1];
-                const quantity = row[2];
-                const tograms = row[3];
+                const tograms = row[2];
 
                 const carbs = (tograms * carbsper100g) / 100;
                 const glserving = (carbs * gi) / 100;
 
-                return `${quantity} ${measurer} ${servingtype.toLowerCase()} ${foodName.toLowerCase()} (${tograms}g) έχει GL ${glserving.toFixed(1)}`;
+                return `1 ${measurer} ${servingtype.toLowerCase()} ${foodName.toLowerCase()} (${tograms} γρ.) έχει GL ${glserving.toFixed(1)}`;
             });
 
             document.getElementById("serving").innerHTML = servingsList.join("<br>");

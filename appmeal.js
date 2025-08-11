@@ -1,5 +1,5 @@
 let db;
-const meal = []; // Array για το γεύμα (τροφές + ποσότητες)
+const meal = []; // Array για το γεύμα (τροφές + ποσότητες + μονάδες)
 
 async function initSQL() {
     try {
@@ -27,6 +27,7 @@ async function initSQL() {
         db = new SQL.Database(new Uint8Array(buffer));  // Load the database from the ArrayBuffer
 
         loadFoods();  // Populate the dropdown with food names
+        loadUnits();  // Populate the units dropdown
     } catch (error) {
         console.error('Error loading the database:', error);  // Catch and log any errors
     }
@@ -65,6 +66,158 @@ function loadFoods() {
         });
     }
 }
+
+// Function to populate the units dropdown 
+async function loadUnits() {
+  try {
+    const res = db.exec(`SELECT MEASURER FROM MEASURE ORDER BY MEASURER`);
+
+    console.log(res);
+
+    const select = document.getElementById('unit');
+    // Διατήρησε το placeholder, αφαίρεσε τις παλιές επιλογές
+    select.querySelectorAll('option:not([disabled])').forEach(o => o.remove());
+
+    if (!res.length || !res[0].values.length) return;
+
+    res[0].values.forEach(([measurer]) => {
+      const opt = document.createElement('option');
+      opt.value = measurer;
+      opt.textContent = measurer;
+      select.appendChild(opt);
+    });
+  } catch (err) {
+    console.error('Failed to load units:', err);
+  }
+}
+
+// κάλεσέ το στο init σου αφού φορτώσει η DB
+function repopulateUnits(units) {
+  const select = document.getElementById('unit');
+  if (!select) return;
+
+  const prev = select.value;
+  // κράτα το placeholder, καθάρισε τα υπόλοιπα
+  select.querySelectorAll('option:not([disabled])').forEach(o => o.remove());
+
+  units.forEach(measurer => {
+    const opt = document.createElement('option');
+    opt.value = measurer;
+    opt.textContent = measurer;
+    select.appendChild(opt);
+  });
+
+  // αν η προηγούμενη επιλογή υπάρχει ακόμη, κράτησέ την
+  if (units.includes(prev)) select.value = prev;
+}
+
+function loadAllUnits() {
+  const res = db.exec(`
+    SELECT DISTINCT MEASURER
+    FROM MEASURE
+    ORDER BY MEASURER COLLATE NOCASE
+  `);
+  const units = (res[0]?.values || []).map(([m]) => m);
+  repopulateUnits(units);
+}
+
+function ensureGrams(units) {
+  const set = new Set((units || []).map(String));
+  set.add('γρ.'); // <-- πάντα πρόσθεσε γραμμάρια
+  // φέρε το 'γρ.' πρώτο, μετά αλφαβητικά
+  return Array.from(set).sort((a, b) => (a === 'γρ.' ? -1 : b === 'γρ.' ? 1 : a.localeCompare(b, 'el', {sensitivity: 'base'})));
+}
+
+function filterUnitsByFood(foodName) {
+  if (!db || !foodName) return;
+
+  const res = db.exec(`
+    SELECT DISTINCT m.MEASURER
+    FROM MEASURE m
+    INNER JOIN CONVERSION c ON c.MEASURER = m.MEASURER
+    WHERE c.FOODNAME = ?
+    ORDER BY m.MEASURER COLLATE NOCASE
+  `, [foodName]);
+
+  const units = (res[0]?.values || []).map(([m]) => m);
+  repopulateUnits(ensureGrams(units)); // <-- πάντα θα έχει 'g'
+}
+
+
+// σύνδεση με το dropdown τροφής
+document.getElementById('food-select').addEventListener('change', (e) => {
+  const foodName = e.target.value;
+  filterUnitsByFood(foodName);
+});
+
+// Προσθήκη τροφής στο γεύμα
+document.getElementById("add-food").addEventListener("click", function() {
+    const foodName = document.getElementById("food-select").value;
+    const quantity = parseFloat(document.getElementById("quantity").value);
+    const unit = document.getElementById("unit").value;
+
+    if (foodName && quantity > 0 && unit) {
+        meal.push({ foodName, quantity, unit});
+
+        // Εμφάνιση τροφής στο γεύμα
+        const mealList = document.getElementById("meal-list");
+        const listItem = document.createElement("li");
+        listItem.textContent = `${foodName} - ${quantity} ${unit}`;
+        mealList.appendChild(listItem);
+
+        // Καθαρισμός του πεδίου ποσότητας
+        document.getElementById("quantity").value = 0;  // Reset to default value
+    }
+});
+
+// Υπολογισμός GL του γεύματος
+document.getElementById("calculate-gl").addEventListener("click", function() {
+    let totalGL = 0;
+
+    meal.forEach(item => {
+        const result = db.exec(`SELECT GLYCEMIC_INDEX, CARBS_PER_100G FROM FOOD WHERE NAME = ?`, [item.foodName])[0];
+
+        if (result && result.values.length > 0) {
+            const glycemicIndex = result.values[0][0];
+            const carbsPer100g = result.values[0][1];
+
+            // Αν οι μονάδες δεν είναι γραμμάρια,
+            if (item.unit !== 'γρ.'){
+                const conversionResult = db.exec(`
+                    SELECT TOGRAMS
+                    FROM CONVERSION
+                    WHERE FOODNAME = ? AND MEASURER = ?
+                `, [item.foodName, item.unit])[0];
+
+                if (conversionResult && conversionResult.values.length > 0){
+                    const tograms = conversionResult.values[0][0];
+                    item.quantity = tograms * item.quantity; // το νέο quantity είναι σε γρ.
+                    item.unit = 'γρ.';
+                }
+            }
+
+            // Υπολογισμός του GL για τη συγκεκριμένη τροφή
+            const gl = (carbsPer100g * item.quantity / 100) * glycemicIndex /100;
+
+            totalGL += gl;
+        }
+    });
+
+    // Εμφάνιση του συνολικού GL
+    document.getElementById("total-gl").textContent = totalGL.toFixed(2);
+});
+
+
+
+// Initialize the database and populate the dropdown when the page loads
+window.addEventListener('load', initSQL);
+
+
+// Activate all popovers
+document.addEventListener('DOMContentLoaded', function () {
+  const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+  [...popoverTriggerList].forEach(el => new bootstrap.Popover(el));
+});
 
 
 //////////////////////////////// Dark Mode ///////////////////////////////////////
@@ -138,58 +291,3 @@ if (localStorage.getItem('dark-mode') === 'enabled') {
     icon.className = 'bi bi-sun-fill';  // Set class for sun icon
     document.getElementById('dark-mode-toggle').appendChild(icon);
 }
-
-//////////////////////////////// Υπολογιστής γεύματος ////////////////////////////
-// Προσθήκη τροφής στο γεύμα
-document.getElementById("add-food").addEventListener("click", function() {
-    const foodName = document.getElementById("food-select").value;
-    const quantity = parseFloat(document.getElementById("quantity").value);
-
-    if (foodName && quantity > 0) {
-        meal.push({ foodName, quantity });
-
-        // Εμφάνιση τροφής στο γεύμα
-        const mealList = document.getElementById("meal-list");
-        const listItem = document.createElement("li");
-        listItem.textContent = `${foodName} - ${quantity}g`;
-        mealList.appendChild(listItem);
-
-        // Καθαρισμός του πεδίου ποσότητας
-        document.getElementById("quantity").value = 100;  // Reset to default value
-    }
-});
-
-// Υπολογισμός GL του γεύματος
-document.getElementById("calculate-gl").addEventListener("click", function() {
-    let totalGL = 0;
-
-    meal.forEach(item => {
-        const query = `SELECT GLYCEMIC_INDEX, CARBS_PER_100G FROM FOOD WHERE NAME = ?`;
-        const result = db.exec(query, [item.foodName])[0];
-
-        if (result && result.values.length > 0) {
-            const glycemicIndex = result.values[0][0];
-            const carbsPer100g = result.values[0][1];
-
-            // Υπολογισμός του GL για τη συγκεκριμένη τροφή
-            const gl = (carbsPer100g * item.quantity / 100) * glycemicIndex /100;
-
-            totalGL += gl;
-        }
-    });
-
-    // Εμφάνιση του συνολικού GL
-    document.getElementById("total-gl").textContent = totalGL.toFixed(2);
-});
-
-
-
-// Initialize the database and populate the dropdown when the page loads
-window.onload = initSQL;
-
-
-// Activate all popovers
-document.addEventListener('DOMContentLoaded', function () {
-  const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
-  [...popoverTriggerList].forEach(el => new bootstrap.Popover(el));
-});

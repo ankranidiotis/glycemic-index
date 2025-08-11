@@ -62,23 +62,34 @@
             </select>
         </div>
 
-         <!-- Ποσότητα τροφής -->
-        <div class="mb-3">
-            <label for="quantity" class="form-label">Ποσότητα (σε γραμμάρια):</label>
-            <input type="number" id="quantity" class="form-control" min="1" value="100">
+        <!-- Ποσότητα τροφής και μονάδα -->
+        <div class="mb-3 row">
+            <!-- Ποσότητα -->
+            <div class="col-md-6">
+                <label for="quantity" class="form-label">Ποσότητα:</label>
+                <input type="number" id="quantity" class="form-control" min="0" value="0">
+            </div>
+
+            <!-- Μονάδα μέτρησης -->
+            <div class="col-md-6">
+            <label for="unit" class="form-label">Μονάδα μέτρησης:</label>
+            <select id="unit" class="form-select">
+                <option value="" disabled selected>Επιλέξτε μονάδα</option>
+            </select>
+            </div>        
         </div>
 
         <!-- Κουμπί για προσθήκη τροφής στο γεύμα -->
-        <button class="btn btn-primary" id="add-food">Προσθήκη Τροφής</button>
+        <button class="btn btn-primary" id="add-food">Προσθήκη τροφής</button>
 
         <hr>
 
         <!-- Γεύμα (Οι τροφές που προστέθηκαν) -->
-        <h4>Επιλεγμένα Συστατικά Γεύματος:</h4>
+        <h4>Επιλεγμένα συστατικά γεύματος:</h4>
         <ul id="meal-list"></ul>
 
         <!-- Υπολογισμός GL -->
-        <button class="btn btn-success" id="calculate-gl">Υπολόγισε το GL του Γεύματος</button>
+        <button class="btn btn-success" id="calculate-gl">Υπολόγισε το GL του γεύματος</button>
 
         <h5 class="mt-4">Συνολικό GL του γεύματος: <span id="total-gl">0</span></h5>
 

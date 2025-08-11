@@ -37,7 +37,6 @@ body {
 }
 
 #dark-mode-toggle.btn {
-    background-color: #1a73e8;
     color: #fff;
 }
 
@@ -67,7 +66,6 @@ body.dark-mode {
 }
 
 .btn.dark-mode {
-    background-color: #1a73e8;
     color: #fff;
 }
 

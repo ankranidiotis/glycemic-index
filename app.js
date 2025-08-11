@@ -268,3 +268,10 @@ if (localStorage.getItem('dark-mode') === 'enabled') {
 
 // Initialize the database and populate the dropdown when the page loads
 window.onload = initSQL;
+
+
+// Activate all popovers
+document.addEventListener('DOMContentLoaded', function () {
+  const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]');
+  [...popoverTriggerList].forEach(el => new bootstrap.Popover(el));
+});

@@ -24,7 +24,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.html">
-                <img src="./assets/logo.png" alt="GILogo" style="height: 40px; margin-right: 10px;">
+                <img src="./assets/logo.webp" alt="GILogo" style="height: 40px; margin-right: 10px;">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -79,7 +79,15 @@
                     <div class="card mb-3">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
-                                <span>Γλυκαιμικός δείκτης</span>
+                                <span title="Δείκτης που δείχνει πόσο γρήγορα αυξάνει η γλυκόζη στο αίμα μετά την κατανάλωση ενός τροφίμου">
+                                    Γλυκαιμικός δείκτης
+                                    <i class="bi bi-info-circle ms-2" 
+                                        tabindex="0" 
+                                        data-bs-toggle="popover" 
+                                        data-bs-trigger="focus" 
+                                        data-bs-content="Δείκτης που δείχνει πόσο γρήγορα αυξάνει το σάκχαρο στο αίμα μετά την κατανάλωση ενός τροφίμου">
+                                    </i>
+                                </span>
                                 <span id="glycemic-index"></span>
                             </div>
                         </div>
@@ -89,7 +97,14 @@
                     <div class="card mb-3">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
-                                <span>Γλυκαιμικό φορτίο 100g</span>
+                                <span>Γλυκαιμικό φορτίο 100g
+                                    <i class="bi bi-info-circle ms-2" 
+                                        tabindex="0" 
+                                        data-bs-toggle="popover" 
+                                        data-bs-trigger="focus" 
+                                        data-bs-content="Δείκτης που υπολογίζει την πραγματική επίδραση ενός τροφίμου στην αύξηση του σακχάρου στο αίμα, λαμβάνοντας υπόψιν τόσο τον γλυκαιμικό δείκτη όσο και την ποσότητα των υδατανθράκων στο τρόφιμο.">
+                                    </i>
+                                </span>
                                 <span id="glycemic-load"></span>
                             </div>
                         </div>
@@ -112,7 +127,14 @@
                     <div class="card mb-3">
                         <div class="card-body">
                             <div class="d-flex justify-content-between">
-                                <span>Άνω όριο</span>
+                                <span>Άνω όριο
+                                    <i class="bi bi-info-circle ms-2" 
+                                        tabindex="0" 
+                                        data-bs-toggle="popover" 
+                                        data-bs-trigger="focus" 
+                                        data-bs-content="Η ποσότητα σε γραμμάρια (της οποίας το γλυκαιμικό φορτίο ισούται με 10) που μπορεί να καταναλωθεί μόνη της χωρίς να προκαλέσει απότομη αύξηση του σακχάρου στο αίμα.">
+                                    </i>
+                                </span>
                                 <span id="maximum-quantity" class="badge text-bg-success fs-6">
                             </div>
                         </div>

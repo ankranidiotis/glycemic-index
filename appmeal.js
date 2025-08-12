@@ -52,7 +52,7 @@ function loadFoods() {
         // Add the default option (blank and disabled)
         const defaultOption = document.createElement("option");
         defaultOption.value = "";
-        defaultOption.textContent = "Επιλέξτε τροφή:";
+        defaultOption.textContent = "Προσθέστε τροφή:";
         defaultOption.disabled = true;
         defaultOption.selected = true;
         foodSelect.appendChild(defaultOption);
@@ -71,8 +71,6 @@ function loadFoods() {
 async function loadUnits() {
   try {
     const res = db.exec(`SELECT MEASURER FROM MEASURE ORDER BY MEASURER`);
-
-    console.log(res);
 
     const select = document.getElementById('unit');
     // Διατήρησε το placeholder, αφαίρεσε τις παλιές επιλογές
@@ -203,11 +201,32 @@ document.getElementById("calculate-gl").addEventListener("click", function() {
         }
     });
 
-    // Εμφάνιση του συνολικού GL
-    document.getElementById("total-gl").textContent = totalGL.toFixed(2);
+    //////// Εμφάνιση του συνολικού GL ////////////////////
+
+    // Add badge
+    const glElement = document.getElementById("total-gl");
+    glElement.classList.add("badge", "fs-6");
+
+    if (totalGL <= 10) {
+        // Low GL (green)
+        glElement.classList.add("bg-success");  
+    } else if (totalGL > 10 && totalGL < 20) {
+        // Medium GL (orange)
+        glElement.classList.add("bg-warning"); 
+    } else {
+        // High GL (red)
+        glElement.classList.add("bg-danger");  
+    }
+
+    // Set the GL value as the badge content with one decimal place
+    glElement.textContent = totalGL.toFixed(1);
+
 });
 
-
+document.getElementById('reset-meal').addEventListener('click', () => {
+  if (!confirm('Θέλεις σίγουρα να ξεκινήσεις νέο γεύμα;')) return;
+  window.location.reload(); 
+});
 
 // Initialize the database and populate the dropdown when the page loads
 window.addEventListener('load', initSQL);

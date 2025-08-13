@@ -52,7 +52,7 @@ function loadFoods() {
         // Add the default option (blank and disabled)
         const defaultOption = document.createElement("option");
         defaultOption.value = "";
-        defaultOption.textContent = "Προσθέστε τροφή:";
+        defaultOption.textContent = "Επιλέξτε τροφή:";
         defaultOption.disabled = true;
         defaultOption.selected = true;
         foodSelect.appendChild(defaultOption);
@@ -164,7 +164,7 @@ document.getElementById("add-food").addEventListener("click", function() {
         mealList.appendChild(listItem);
 
         // Καθαρισμός του πεδίου ποσότητας
-        document.getElementById("quantity").value = 0;  // Reset to default value
+        document.getElementById("quantity").value = "";  // Reset to default value
     }
 });
 

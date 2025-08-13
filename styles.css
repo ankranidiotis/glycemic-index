@@ -40,6 +40,8 @@ body {
     color: #fff;
 }
 
+
+
 /* Dark Mode Styles */
 body.dark-mode {
     background-color: #121212;
@@ -101,7 +103,8 @@ body.dark-mode {
 
 
 #reset-meal {
-    width: 250px; 
+    width: 250px;
+    white-space: nowrap; 
 }
 
 

@@ -181,29 +181,11 @@ function loadFoodInfo() {
         document.getElementById("food-image").src = foodImage;
         document.getElementById("food-image").alt = result.values[0][0] + ' Image';  
 
-        ////////////////// serving ////////////////////////////
-        const conversions = db.exec(
-            `SELECT * FROM CONVERSION WHERE FOODNAME = ?`, [foodName])[0];
 
-        if (conversions && conversions.values.length > 0) {
-            let servingsList = conversions.values.map(row => {
-                const measurer = row[1];
-                const tograms = row[2];
-
-                const carbs = (tograms * carbsper100g) / 100;
-                const glserving = (carbs * gi) / 100;
-
-                return `1 ${measurer} ${servingtype.toLowerCase()} ${foodName.toLowerCase()} (${tograms} γρ.) έχει GL ${glserving.toFixed(1)}`;
-            });
-
-            document.getElementById("serving").innerHTML = servingsList.join("<br>");
-        } else {
-            document.getElementById("serving").textContent = "";
-        }
-            } else {
-                console.error('No data found for the selected food.');
-            }
-        }
+    } else {
+        console.error('No data found for the selected food.');
+    }
+}
 
 //////////////////////////////// Dark Mode ///////////////////////////////////////
 

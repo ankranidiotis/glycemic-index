@@ -57,11 +57,11 @@
         <p style="text-align: justify;">Επιλέξτε μια τροφή και προσθέστε ποσότητα, για να υπολογίσετε το γλυκαιμικό φορτίο (GL) του γεύματος.</p>
 
         <!-- Dropdown for selecting food -->
-        <div class="mb-4 mt-3">
+        <div class="d-flex align-items-center mb-4 mt-3">
             <select id="food-select" class="form-select">
                 <option value="" disabled selected>Προσθέστε τροφή:</option>
-                <!-- Options will be dynamically populated -->
             </select>
+            <button class="btn btn-outline-secondary w-50 ms-3" id="reset-meal" type="button">Νέο γεύμα</button>
         </div>
 
         <!-- Ποσότητα τροφής και μονάδα -->
@@ -69,7 +69,7 @@
             <!-- Ποσότητα -->
             <div class="col-md-6">
                 <label for="quantity" class="form-label">Ποσότητα:</label>
-                <input type="number" id="quantity" class="form-control" min="0" value="0">
+                <input type="number" id="quantity" class="form-control" min="0" value="">
             </div>
 
             <!-- Μονάδα μέτρησης -->
@@ -97,10 +97,10 @@
 
         <div class="card mt-4">
             <div class="card-body">
-                <div class="d-flex justify-content-between">
+                <div class="d-flex justify-content-between align-items-center">
                     <h5 class="card-title">Συνολικό GL γεύματος</h5>
-                    <p><span id="total-gl">0</span></p>
-                </div>
+                    <p class="mb-0"><span id="total-gl">0</span></p>
+                </div>            
             </div>
         </div>
 

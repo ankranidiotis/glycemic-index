@@ -180,6 +180,7 @@ document.getElementById("calculate-gl").addEventListener("click", function() {
             const carbsPer100g = result.values[0][1];
 
             // Αν οι μονάδες δεν είναι γραμμάρια,
+            let quantityInGrams = item.quantity;
             if (item.unit !== 'γρ.'){
                 const conversionResult = db.exec(`
                     SELECT TOGRAMS
@@ -189,13 +190,12 @@ document.getElementById("calculate-gl").addEventListener("click", function() {
 
                 if (conversionResult && conversionResult.values.length > 0){
                     const tograms = conversionResult.values[0][0];
-                    item.quantity = tograms * item.quantity; // το νέο quantity είναι σε γρ.
-                    item.unit = 'γρ.';
+                    quantityInGrams = tograms * item.quantity; // το νέο quantity είναι σε γρ.
                 }
             }
 
             // Υπολογισμός του GL για τη συγκεκριμένη τροφή
-            const gl = (carbsPer100g * item.quantity / 100) * glycemicIndex /100;
+            const gl = (carbsPer100g * quantityInGrams / 100) * glycemicIndex /100;
 
             totalGL += gl;
         }

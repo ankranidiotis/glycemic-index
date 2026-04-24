@@ -209,7 +209,8 @@ document.getElementById('dark-mode-toggle').addEventListener('click', function()
         });
     }
 
-    document.querySelector('.form-select').classList.toggle('dark-mode');
+    const formSelectEl = document.querySelector('.form-select');
+    if (formSelectEl) formSelectEl.classList.toggle('dark-mode');
     document.querySelector('.btn').classList.toggle('dark-mode');
 
     const icon = document.createElement('i');

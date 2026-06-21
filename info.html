@@ -8,20 +8,26 @@
     <!-- Link to favicon -->
     <link rel="icon" href="favicon.ico" type="image/x-icon">
 
-    <!-- Link to external CSS file -->
-    <link rel="stylesheet" href="styles.css">  
-
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
 
     <!-- Bootstrap Icons CDN -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
+    <!-- Google Fonts (async — does not block window.onload / SQL init) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700;800&display=swap" as="style" onload="this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet"></noscript>
+
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="styles.css">
+
 </head>
 <body>
 
     <!-- Navbar (Header Menu) -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-glass">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.html">
                 <img src="./assets/logo.webp" alt="GILogo" style="height: 40px; margin-right: 10px;">
@@ -51,80 +57,72 @@
 
     <!-- Main Content -->
     <div class="container mt-4">
-        <div class="row"> 
-            <!-- Card 1 -->
-            <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">👉️ Γλυκαιμικός Δείκτης</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">(GI)</h6>
-                        <p class="card-text" style="text-align: justify;">Ο γλυκαιμικός δείκτης (GI) μετρά την ικανότητα ενός τροφίμου να αυξάνει τα επίπεδα σακχάρου στο αίμα. Τα τρόφιμα με χαμηλό GI βοηθούν στη σταθεροποίηση του σακχάρου στο αίμα. Γενικώς, ισχύει ότι:
-                            <ul>
-                                <li><strong>Χαμηλό GI</strong>: GI ≤ 55 - Τα τρόφιμα με χαμηλό GI απορροφώνται αργά και προκαλούν ήπια αύξηση του σακχάρου στο αίμα.</li>
-                                <li><strong>Μεσαίο GI</strong>: 56 < GI < 70 - Τα τρόφιμα με μεσαίο GI προκαλούν μέτρια αύξηση του σακχάρου στο αίμα.</li>
-                                <li><strong>Υψηλό GI</strong>: GI ≥ 70 - Τα τρόφιμα με υψηλό GI προκαλούν απότομη αύξηση του σακχάρου στο αίμα.</li>
-                            </ul>
-                        </p>
-                        <a href="https://glycemicindex.com/" class="card-link">Περισσότερα...</a>
-                    </div>
+        <div class="bento-grid">
+
+            <!-- Card 1: Glycemic Index (wide) -->
+            <div class="card bento-card bento-wide">
+                <div class="card-body">
+                    <i class="bi bi-speedometer2 bento-icon"></i>
+                    <h5 class="card-title">Γλυκαιμικός Δείκτης</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">(GI)</h6>
+                    <p class="card-text" style="text-align: justify;">Ο γλυκαιμικός δείκτης (GI) μετρά την ικανότητα ενός τροφίμου να αυξάνει τα επίπεδα σακχάρου στο αίμα. Τα τρόφιμα με χαμηλό GI βοηθούν στη σταθεροποίηση του σακχάρου στο αίμα. Γενικώς, ισχύει ότι:
+                        <ul>
+                            <li><strong>Χαμηλό GI</strong>: GI ≤ 55 — Τα τρόφιμα με χαμηλό GI απορροφώνται αργά και προκαλούν ήπια αύξηση του σακχάρου στο αίμα.</li>
+                            <li><strong>Μεσαίο GI</strong>: 56 &lt; GI &lt; 70 — Τα τρόφιμα με μεσαίο GI προκαλούν μέτρια αύξηση του σακχάρου στο αίμα.</li>
+                            <li><strong>Υψηλό GI</strong>: GI ≥ 70 — Τα τρόφιμα με υψηλό GI προκαλούν απότομη αύξηση του σακχάρου στο αίμα.</li>
+                        </ul>
+                    </p>
+                    <a href="https://glycemicindex.com/" class="card-link" target="_blank">Περισσότερα...</a>
                 </div>
             </div>
 
-            <!-- Card 2 -->
-            <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">👉️ Γλυκαιμικό Φορτίο</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">(GL)</h6>
-                        <p class="card-text" style="text-align: justify;">Το γλυκαιμικό φορτίο (GL) υπολογίζει την πραγματική επίδραση ενός τροφίμου στην αύξηση του σακχάρου στο αίμα, λαμβάνοντας υπόψιν τόσο τον δείκτη GI όσο και την ποσότητα των υδατανθράκων στο τρόφιμο. Γενικώς, ισχύει ότι:
-                            <ul>
-                                <li><strong>Χαμηλό GL</strong>: GL ≤ 10 - Η ποσότητα κατανάλωσης ενός τροφίμου με χαμηλό GL προκαλεί ήπια αύξηση του σακχάρου στο αίμα.</li>
-                                <li><strong>Μεσαίο GL</strong>: 11 < GL < 19 - Η ποσότητα κατανάλωσης ενός τροφίμου με μεσαίο GL προκαλούν μέτρια αύξηση του σακχάρου στο αίμα.</li>
-                                <li><strong>Υψηλό GL</strong>: GL ≥ 20 - Η ποσότητα ενός κατανάλωσης τροφίμου με υψηλό GL προκαλούν απότομη αύξηση του σακχάρου στο αίμα, κυρίως λόγω της υψηλής ποσότητας υδατανθράκων που περιέχει.</li>
-                            </ul>
-                        </p>
-                        <a href="https://glycemic-index.net/" class="card-link">Περισσότερα...</a>
-                    </div>
+            <!-- Card 2: Glycemic Load -->
+            <div class="card bento-card">
+                <div class="card-body">
+                    <i class="bi bi-bar-chart-line bento-icon"></i>
+                    <h5 class="card-title">Γλυκαιμικό Φορτίο</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">(GL)</h6>
+                    <p class="card-text" style="text-align: justify;">Το γλυκαιμικό φορτίο (GL) υπολογίζει την πραγματική επίδραση ενός τροφίμου στην αύξηση του σακχάρου στο αίμα, λαμβάνοντας υπόψιν τόσο τον δείκτη GI όσο και την ποσότητα των υδατανθράκων. Γενικώς:
+                        <ul>
+                            <li><strong>Χαμηλό GL</strong>: GL ≤ 10</li>
+                            <li><strong>Μεσαίο GL</strong>: 11 &lt; GL &lt; 19</li>
+                            <li><strong>Υψηλό GL</strong>: GL ≥ 20</li>
+                        </ul>
+                    </p>
+                    <a href="https://glycemic-index.net/" class="card-link" target="_blank">Περισσότερα...</a>
                 </div>
             </div>
 
-            <!-- Card 3 -->
-            <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">👉️ Άνω όριο κατανάλωσης</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">GL ≤ 10</h6>
-                        <p class="card-text" style="text-align: justify;">Η ποσότητα σε γραμμάρια της οποίας το γλυκαιμικό φορτίο (GL) ισούται με 10 είναι το ανώτατο όριο κατανάλωσης για την συγκεκριμένη τροφή. Οποιαδήποτε ποσότητα μικρότερη ή ίση αυτής είναι ασφαλής για κατανάλωση. <br/><br/> 📌 Προσοχή! <br/>Στην περίπτωση γεύματος, πρέπει να ληφθεί υπόψιν το σύνολικό γλυκαιμικό φορτίο του γεύματος.</p>
-                    </div>
+            <!-- Card 3: Upper limit -->
+            <div class="card bento-card">
+                <div class="card-body">
+                    <i class="bi bi-shield-check bento-icon"></i>
+                    <h5 class="card-title">Άνω όριο κατανάλωσης</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">GL ≤ 10</h6>
+                    <p class="card-text" style="text-align: justify;">Η ποσότητα σε γραμμάρια της οποίας το γλυκαιμικό φορτίο (GL) ισούται με 10 είναι το ανώτατο όριο κατανάλωσης για την συγκεκριμένη τροφή. Οποιαδήποτε ποσότητα μικρότερη ή ίση αυτής είναι ασφαλής για κατανάλωση.</p>
+                    <p class="card-text"><small class="text-body-secondary"><i class="bi bi-exclamation-circle me-1"></i>Στο γεύμα λαμβάνεται υπόψιν το συνολικό GL.</small></p>
                 </div>
             </div>
 
-
-            <!-- Card 4 -->
-            <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">👉️ Γλυκαιμικό φορτίο γεύματος</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">GL</h6>
-                        <p class="card-text" style="text-align: justify;">Το γλυκαιμικό φορτίο (GL) ενός γεύματος ισούται με το άθροισμα των γλυκαιμικών φορτίων των επιμέρους τροφών του γεύματος.</p>
-                    </div>
+            <!-- Card 4: Meal GL -->
+            <div class="card bento-card">
+                <div class="card-body">
+                    <i class="bi bi-calculator bento-icon"></i>
+                    <h5 class="card-title">Γλυκαιμικό φορτίο γεύματος</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">GL γεύματος</h6>
+                    <p class="card-text" style="text-align: justify;">Το γλυκαιμικό φορτίο (GL) ενός γεύματος ισούται με το άθροισμα των γλυκαιμικών φορτίων των επιμέρους τροφών του γεύματος.</p>
                 </div>
             </div>
 
-
-            <!-- Card 5 -->
-            <div class="col-lg-3 col-md-6 col-sm-12 mb-3">
-                <div class="card" style="width: 18rem;">
-                    <div class="card-body">
-                        <h5 class="card-title">👉️ Υδατάνθρακες</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">GL</h6>
-                        <p class="card-text" style="text-align: justify;">Οι υδατάνθρακες στην περίπτωση του υπολογισμού γλυκαιμικού φορτίου είναι πάντοτε οι διαθέσιμοι (καθαροί υδατάνθρακες ή net carbs) υδατάνθρακες, δηλαδή εκείνοι που μεταβολίζονται στον οργανισμό. Στην Ε.Ε. οι ετικέτες των προϊόντων αναφέρουν την ποσότητα των καθαρών υδατανθράκων (δες τον <a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02011R1169-20180101" target="_blank">κανονισμό</a>). Αντιθέτως, στις ΗΠΑ γίνεται αναφορά στην ολική ποσότητα υδατανθράκων (που περιλαμβάνουν και τις φυτικές ίνες). Ορισμένα προϊόντα εισαγωγής από χώρες όπως οι ΗΠΑ μπορεί να αναγράφουν την συνολική ποσότητα υδατανθράκων.</p>
-                    </div>
+            <!-- Card 5: Carbohydrates -->
+            <div class="card bento-card">
+                <div class="card-body">
+                    <i class="bi bi-droplet-half bento-icon"></i>
+                    <h5 class="card-title">Υδατάνθρακες</h5>
+                    <h6 class="card-subtitle mb-2 text-body-secondary">Net carbs</h6>
+                    <p class="card-text" style="text-align: justify;">Οι υδατάνθρακες για τον υπολογισμό GL είναι πάντοτε οι διαθέσιμοι (net carbs). Στην Ε.Ε. οι ετικέτες αναφέρουν ήδη καθαρούς υδατάνθρακες (<a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:02011R1169-20180101" target="_blank">κανονισμός</a>). Στις ΗΠΑ αναφέρεται η ολική ποσότητα.</p>
                 </div>
             </div>
-
-
-
 
         </div>
     </div>
